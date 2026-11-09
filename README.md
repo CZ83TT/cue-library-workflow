@@ -4,7 +4,11 @@
 
 作者： [**CZ83TT**](https://github.com/CZ83TT)
 
-它适合这些情况：
+An OpenAI Codex skill for organizing lossless music libraries. It focuses on CUE encoding repair, audio-reference validation, tracklist verification, metadata cleanup, and Foobar2000 import.
+
+Author: [**CZ83TT**](https://github.com/CZ83TT)
+
+## Features / 功能
 
 - CUE 文件显示乱码，需要判断 UTF-8、GB18030 或 Big5。
 - CUE 中的 `FILE` 引用与同目录音频文件名不一致。
@@ -12,7 +16,15 @@
 - 分轨 WAV/FLAC 需要统一命名，并保持 CUE 可播放。
 - 需要把 CUE 文件加入 Foobar2000，同时避免整轨音频重复加入。
 
-## 设计原则
+适用场景 / Typical use cases:
+
+- Repair garbled CUE text by identifying UTF-8, GB18030, Big5, or another likely encoding.
+- Fix `FILE` references that do not match audio files in the same directory.
+- Verify artist, album, title, and track order against covers, booklets, local tracklists, or reliable online sources.
+- Normalize split WAV/FLAC filenames while keeping the CUE playable.
+- Add CUE entries to Foobar2000 without duplicating the source image or whole-track audio.
+
+## 设计原则 / Principles
 
 - 先确认目录、音频文件和 CUE 的实际对应关系，再修改。
 - 封面、封底、说明书和本地曲目表优先于网上转载歌单。
@@ -21,7 +33,14 @@
 - 每次修改后检查 CUE 编码、引用、曲序，并抽查首曲、中间曲和末曲。
 - 未确认的内容标为“需要人工确认”，不伪造信息。
 
-## 安装
+- Confirm the actual directory, audio files, and CUE relationship before editing.
+- Prefer covers, back covers, booklets, and local tracklists over copied online lists.
+- Do not guess a release version, track order, or timestamps from a similar album.
+- Keep audio content unchanged; edit only evidence-supported filenames, CUE fields, and tags.
+- After editing, validate encoding, references, ordering, and representative first/middle/last tracks.
+- Mark unresolved information for manual review instead of inventing metadata.
+
+## 安装 / Installation
 
 将整个 `cue-library-workflow` 目录放入 Codex skills 目录：
 
@@ -35,7 +54,13 @@
 $cue-library-workflow
 ```
 
-## 推荐目录结构
+You can also invoke it explicitly in a Codex conversation:
+
+```text
+$cue-library-workflow
+```
+
+## 推荐目录结构 / Recommended layout
 
 ```text
 音乐库/
@@ -52,10 +77,14 @@ $cue-library-workflow
 
 目录约定的详细说明见 [references/library-conventions.md](references/library-conventions.md)。
 
-## 处理边界
+See [references/library-conventions.md](references/library-conventions.md) for the detailed directory conventions.
+
+## 处理边界 / Scope
 
 这个 skill 不下载或重新编码 APE/WAV/FLAC 音频，也不凭空补齐缺失的分轨文件。网上歌单只能用于辅助核对；如果版本或曲目数量对不上，应保留现状并报告差异。
 
-## 许可证
+This skill does not download or re-encode APE/WAV/FLAC audio, and it does not fabricate missing tracks. Online tracklists are supporting evidence only. If the release version or track count does not match, preserve the existing files and report the discrepancy.
+
+## 许可证 / License
 
 MIT License。详见 [LICENSE](LICENSE)。
